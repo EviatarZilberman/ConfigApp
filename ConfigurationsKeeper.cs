@@ -11,14 +11,15 @@ namespace ConfigApp
     {
         public Dictionary<string, string> Data = new Dictionary<string, string>();
 
-        public ConfigurationsKeeper() 
+        public ConfigurationsKeeper()
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            foreach (string key in config.AppSettings.Settings)
+
+            foreach (string key in config.AppSettings.Settings.AllKeys)
             {
-                this.Data.Add(key, config.AppSettings.Settings[key].Value); 
+                this.Data.Add(key, config.AppSettings.Settings[key].Value);
             }
         }
-
     }
+
 }
