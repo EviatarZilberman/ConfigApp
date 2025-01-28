@@ -7,19 +7,51 @@ using System.Threading.Tasks;
 
 namespace ConfigApp
 {
-    public class ConfigurationsKeeper
+    public static class ConfigurationsKeeper
     {
-        public Dictionary<string, string> Data = new Dictionary<string, string>();
+        private static Dictionary<string, string> Data = new Dictionary<string, string>();
+        private static Configuration? Config { get; set; } = null;
+        //public ConfigurationsKeeper()
+        //{
+        //    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-        public ConfigurationsKeeper()
+        //    foreach (string key in config.AppSettings.Settings.AllKeys)
+        //    {
+        //        this.Data.Add(key, config.AppSettings.Settings[key].Value);
+        //    }
+        //}
+        public static void Init()
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-            foreach (string key in config.AppSettings.Settings.AllKeys)
+            if (Config == null)
             {
-                this.Data.Add(key, config.AppSettings.Settings[key].Value);
+                Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                foreach (string key in Config.AppSettings.Settings.AllKeys)
+                {
+                    Data.Add(key, Config.AppSettings.Settings[key].Value);
+                }
+            }
+        }
+
+        public static string GetValue(string key)
+        {
+            try
+            {
+                if (Config != null)
+                {
+                    return Config.AppSettings.Settings[key].Value;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            catch 
+            {
+                return string.Empty;
             }
         }
     }
 
-}
+
+    }
