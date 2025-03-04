@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Configuration;
+﻿using System.Configuration;
 
 
-Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
 /*// Update or add a setting
 //config.AppSettings.Settings["a"].Value = "AAA";
