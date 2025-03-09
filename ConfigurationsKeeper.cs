@@ -25,7 +25,7 @@ namespace ConfigApp
         }
 
         // Public static property to access the singleton instance
-        public static ConfigurationsKeeper Instance => _instance.Value;
+        public static ConfigurationsKeeper Instance() => _instance.Value;
 
         // Method to get a configuration value
         public string GetValue(string key)
